@@ -1,0 +1,127 @@
+/* AnchorKey site — minimal, readable, no JS, no fonts loaded externally. */
+
+:root {
+  --fg: #111;
+  --fg-soft: #555;
+  --bg: #fff;
+  --accent: #0a84ff;
+  --rule: #e7e7e9;
+  --code-bg: #f5f5f7;
+  --max-w: 36rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #f2f2f7;
+    --fg-soft: #b8b8c0;
+    --bg: #0d0d10;
+    --accent: #5ac8fa;
+    --rule: #2c2c2e;
+    --code-bg: #1c1c1e;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+
+header {
+  margin-bottom: 3rem;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 2.5rem 0 0.75rem;
+}
+
+p, ul {
+  margin: 0 0 1rem;
+  color: var(--fg);
+}
+
+ul {
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.tagline {
+  color: var(--fg-soft);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.constraint {
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-left: 3px solid var(--accent);
+  padding: 0.25rem 0 0.25rem 0.9rem;
+  margin: 0.5rem 0 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code {
+  background: var(--code-bg);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+section {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.75rem;
+  margin-top: 1.75rem;
+}
+
+section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--fg-soft);
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: var(--fg-soft);
+}

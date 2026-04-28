@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AnchorKey — Privacy</title>
+  <meta name="description" content="Privacy policy for AnchorKey. The phone is the only place secrets live; nothing leaves it without biometric consent.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>AnchorKey Privacy</h1>
+      <p class="tagline">Last updated: 2026-04-27</p>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        AnchorKey is a phone-as-trust-anchor credential broker. The phone is
+        the only place secrets live; nothing leaves it without biometric
+        consent. We don't operate a server, don't collect telemetry by
+        default, and don't have access to your credentials.
+      </p>
+    </section>
+
+    <section>
+      <h2>What stays on your phone</h2>
+      <ul>
+        <li>The encrypted credential vault.</li>
+        <li>Secure Enclave keys used for pairing and authorization. These are non-extractable hardware-bound keys; we cannot read them, copy them, or move them off the device.</li>
+        <li>Audit log entries for every consent decision you make. Signed by the Secure Enclave.</li>
+        <li>Recovery material. Multi-tier recovery is purely on-device or paired-device.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What we do <em>not</em> collect</h2>
+      <ul>
+        <li>Credentials, vault contents, or any decrypted secret material.</li>
+        <li>Usage analytics, behavioral telemetry, crash payloads beyond Apple's standard TestFlight/App Store reports (you control these in iOS Settings → Privacy → Analytics).</li>
+        <li>Location data. Pattern 6 (device-as-signal) reads location <em>only</em> on-device for your own policy rules; we never receive that data.</li>
+        <li>Contacts, photos, microphone, or camera contents. The camera is used only to scan QR pairing codes, locally; the image is never transmitted.</li>
+        <li>Identifiers for advertising, tracking, or attribution. We don't have an SDK that does any of this.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Where the relay fits in</h2>
+      <p>
+        AnchorKey ships a small Go binary, <code>anchorkey-relay</code>, that
+        you deploy on infrastructure <em>you own</em> (Fly.io free tier, a $5
+        VPS, a Mac mini, a Raspberry Pi). The relay handles outbound API
+        proxying, webhook ingress, schedulers, and integration runtime.
+      </p>
+      <p>
+        The relay holds only short-lived (under one hour) capability tokens
+        minted by your phone. It does not hold long-lived secrets, master
+        keys, or vault contents. Compromising the relay yields the current
+        connection state; the vault is unaffected.
+      </p>
+      <p>
+        We do not host or operate relays for you. The relay is software you
+        run, not a service we provide. We have no access to relay logs, relay
+        SQLite databases, or anything the relay processes.
+      </p>
+    </section>
+
+    <section>
+      <h2>What goes through Apple</h2>
+      <ul>
+        <li>App Store / TestFlight installation flows are governed by <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.</li>
+        <li>AnchorKey uses Apple Push Notification service (APNs) as a wakeup trigger only. APNs payloads carry no app data, no credentials, and no personally identifiable information — they are silent triggers that ask the app to fetch fresh state over your tailnet.</li>
+        <li>iCloud is not used for vault storage or any secret material.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Data subject rights</h2>
+      <p>
+        If you operate AnchorKey purely with your own phone and your own
+        relay, indiagrams cannot honor a deletion request because we don't
+        have your data. You delete the app, the vault is gone with the device
+        keychain. You decommission the relay, the operational audit log is
+        gone with the disk.
+      </p>
+      <p>
+        For inquiries that involve App Store metadata or future hosted
+        services (deferred to v2+), email
+        <a href="mailto:jpraju@gmail.com">jpraju@gmail.com</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Changes to this policy</h2>
+      <p>
+        We will post substantive changes here with a new "last updated" date.
+        Material changes that broaden data collection will be announced in
+        the App Store release notes for the version that introduces them.
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        <a href="/">Home</a> ·
+        <a href="mailto:jpraju@gmail.com">Contact</a> ·
+        © 2026 indiagrams
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

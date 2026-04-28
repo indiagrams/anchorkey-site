@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AnchorKey — Your phone holds the key</title>
+  <meta name="description" content="A credential broker for people who run their own infrastructure. The phone is the trust anchor. The relay is the always-on mesh edge.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>AnchorKey</h1>
+      <p class="tagline">Your phone holds the key.</p>
+    </header>
+
+    <section>
+      <p>
+        AnchorKey is a credential broker for people who run their own
+        infrastructure but don't want to run a credential server. The Apple
+        device you already carry holds the vault, signs every authorization,
+        and never lets a long-lived secret leave its Secure Enclave.
+      </p>
+      <p>
+        A small Go binary — <code>anchorkey-relay</code> — runs on your own
+        tailnet (Fly.io free tier, $5 VPS, Mac mini, Pi) and handles the
+        always-on work: webhook ingress, schedulers, outbound API proxying,
+        integration runtime. It uses only short-lived
+        (≤ 1&nbsp;hour) capability tokens minted by your phone.
+      </p>
+    </section>
+
+    <section>
+      <h2>The defining constraint</h2>
+      <p class="constraint">
+        Every act of authority must touch your phone, and no long-lived
+        secret ever leaves it.
+      </p>
+      <p>
+        Pairing, adding a credential, approving a high-value action, rotating
+        a key, recovering from device loss — all gated by biometric on the
+        phone. The relay can <em>consume</em> capabilities but cannot
+        <em>create</em> authority. Compromise the relay, lose the next hour's
+        traffic; the vault stays intact.
+      </p>
+    </section>
+
+    <section>
+      <h2>Six operational patterns, one architecture</h2>
+      <ul>
+        <li><strong>Outbound API</strong> — call Stripe, GitHub, or any service with credentials injected per-request.</li>
+        <li><strong>Inbound webhook</strong> — receive callbacks; verify; queue for biometric approval.</li>
+        <li><strong>Polling</strong> — scheduler wakes; fetches via proxy; triggers rules.</li>
+        <li><strong>Browser automation</strong> — broker mints a short-lived token to a runner.</li>
+        <li><strong>External compute orchestration</strong> — provision and manage cloud nodes from your phone; remote nodes never hold secrets.</li>
+        <li><strong>Device-as-signal</strong> — location, presence, sensor data feed your policy engine as first-class inputs.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Status</h2>
+      <p>
+        Pre-v1 internal beta. Architecture validation only. Not for production
+        use. Source and architecture document at
+        <a href="https://github.com/indiagrams/AnchorKey">github.com/indiagrams/AnchorKey</a>
+        (private during the beta).
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        <a href="/privacy">Privacy</a> ·
+        <a href="mailto:jpraju@gmail.com">Contact</a> ·
+        © 2026 indiagrams
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
