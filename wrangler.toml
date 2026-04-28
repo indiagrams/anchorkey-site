@@ -1,0 +1,17 @@
+# Cloudflare Workers config — static-site mode.
+#
+# `[assets]` tells the Workers runtime to serve files from the listed
+# directory. No JavaScript handler needed: the runtime handles routing,
+# `index.html` for `/`, and 404s automatically.
+#
+# Deploy via the Cloudflare dashboard's "Deploy" button (default
+# `npx wrangler deploy` works) or run it locally with the same command
+# after `npx wrangler login`.
+
+name = "anchorkey-site"
+compatibility_date = "2025-04-01"
+
+[assets]
+directory = "."
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"
